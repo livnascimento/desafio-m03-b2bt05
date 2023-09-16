@@ -1,9 +1,7 @@
 const express = require('express');
 const rotas = express();
+const { cadastrarUsuario } = require('./controladores/usuarioControlador');
 
-rotas.get('/', (req, res) => {
-    console.log('Rodando');
-    res.send('Rolou');
-});
+rotas.get('/usuario', cadastrarUsuario);
 
 module.exports = rotas;
