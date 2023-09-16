@@ -9,7 +9,9 @@ const cadastrarUsuario = async (req, res) => {
         const params = [nome, email, senhaCriptografada];
 
         const usuario = await pool.query(query, params);
-        return res.status(201).json(usuario.rows[0]);
+        const { senha: _, ...usuarioCadastrado } = usuario.rows[0];
+
+        return res.status(201).json(usuarioCadastrado);
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({ mensagem: `erro interno do servidor` });
