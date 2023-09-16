@@ -21,3 +21,22 @@ CREATE TABLE transacoes (
 	usuario_id INT REFERENCES usuarios(id) NOT NULL,
 	tipo VARCHAR(25) NOT NULL
 );
+
+INSERT INTO categorias (descricao) VALUES 
+('Alimentação'),
+('Assinaturas e Serviços'),
+('Casa'),
+('Mercado'),
+('Cuidados Pessoais'),
+('Educação'),
+('Família'),
+('Lazer'),
+('Pets'),
+('Presentes'),
+('Roupas'),
+('Saúde'),
+('Transporte'),
+('Salário'),
+('Vendas'),
+('Outras receitas'),
+('Outras despesas');
