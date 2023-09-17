@@ -25,22 +25,26 @@ const login = async (req, res) => {
     const { email, senha } = req.body;
     const senhaJwt = process.env.SENHA_JWT;
 
-    if (!email || !senha) return res.status(400).json({mensagem:"Todos os campos são obrigatórios."});
+    if (!email || !senha) return res.status(400).json({ mensagem: "Todos os campos são obrigatórios." });
 
     try {
-        const usuario = await pool.query(`select * from usuarios where email = $1`, [email]);
 
-        if (usuario.rowCount === 0) return res.status(400).json({mensagem:"Credenciais inválidas."});
+        const query = `select * from usuarios where email = $1`;
+        const params = [email];
+
+        const usuario = await pool.query(query, params);
+
+        if (usuario.rowCount === 0) return res.status(400).json({ mensagem: "Credenciais inválidas." });
 
         const senhaValida = await bcrypt.compare(senha, usuario.rows[0].senha);
 
-        if (!senhaValida) return res.status(400).json({mensagem:"Credenciais inválidas."});
+        if (!senhaValida) return res.status(400).json({ mensagem: "Credenciais inválidas." });
 
-        const token = jwt.sign({id: usuario.rows[0].id}, senhaJwt, {expiresIn: '8h'});
+        const token = jwt.sign({ id: usuario.rows[0].id }, senhaJwt, { expiresIn: '8h' });
 
         const { senha: _, ...usuarioLogado } = usuario.rows[0];
 
-        return res.status(201).json({usuarioLogado, token});
+        return res.status(201).json({ usuarioLogado, token });
 
     } catch (error) {
         console.log(error.message);
@@ -49,7 +53,28 @@ const login = async (req, res) => {
 
 };
 
+const detalharUsuario = async (req, res) => {
+    const { id } = req.usuario;
+
+    try {
+        const query = `select * from usuarios where id = $1`;
+        const params = [id];
+
+        const usuario = await pool.query(query, params);
+
+        const { senha: _, ...usuarioLogado } = usuario.rows[0];
+
+        return res.json(usuarioLogado);
+
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+
+}
+
 module.exports = {
     cadastrarUsuario,
-    login
+    login,
+    detalharUsuario
 };

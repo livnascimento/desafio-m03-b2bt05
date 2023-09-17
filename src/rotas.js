@@ -2,11 +2,19 @@ const express = require('express');
 const rotas = express();
 const { 
     cadastrarUsuario, 
-    login 
+    login, 
+    detalharUsuario
 } = require('./controladores/usuarioControlador');
-const { validarCadastro } = require('./intermediarios/usuarioIntermediario');
+const { 
+    validarCadastro,
+    validarToken
+} = require('./intermediarios/usuarioIntermediario');
 
 rotas.post('/usuario', validarCadastro, cadastrarUsuario);
 rotas.post('/login', login);
+
+rotas.use(validarToken);
+
+rotas.get('/usuario', detalharUsuario);
 
 module.exports = rotas;
