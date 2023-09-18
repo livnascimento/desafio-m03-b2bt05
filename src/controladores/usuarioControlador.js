@@ -73,8 +73,29 @@ const detalharUsuario = async (req, res) => {
 
 }
 
+const atualizarUsuario = async (req, res) => {
+    const { nome, email, senha } = req.body;
+    const { id } = req.usuario;
+
+    const senhaCriptografada = await bcrypt.hash(senha, 10)
+
+    try {
+        const query = "UPDATE usuarios SET nome = $1, email = $2, senha = $3 WHERE id = $4";
+        const params = [nome, email, senhaCriptografada, id];
+    
+        const usuario = await pool.query(query, params);
+
+        res.status(204).send();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+
+}
+
 module.exports = {
     cadastrarUsuario,
     login,
-    detalharUsuario
+    detalharUsuario,
+    atualizarUsuario
 };

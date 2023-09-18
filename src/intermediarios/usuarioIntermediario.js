@@ -26,7 +26,7 @@ const validarToken = async (req, res, next) => {
     const token = authorization.split(' ')[1];
 
     try {
-        const { id }= jwt.verify(token, senhaJwt);
+        const { id } = jwt.verify(token, senhaJwt);
 
         const usuario = await pool.query(`select * from usuarios where id = $1`, [id]);
 
@@ -35,7 +35,7 @@ const validarToken = async (req, res, next) => {
         req.usuario = usuario.rows[0];
 
         next();
-        
+
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
@@ -43,7 +43,31 @@ const validarToken = async (req, res, next) => {
 
 }
 
-module.exports = { 
-    validarCadastro, 
-    validarToken 
+const validarAtualizacao = async (req, res, next) => {
+    const { nome, email, senha } = req.body;
+    const { id } = req.usuario;
+
+    if (!nome || !email || !senha) req.status(400).json({ mensagem: "Todos os campos são obrigatórios" });
+
+    try {
+        const query = "SELECT * FROM usuarios WHERE email = $1";
+        const params = [email];
+
+        const usuario = await pool.query(query, params);
+
+        if (usuario.rowCount > 0) {
+            if (id != usuario.rows[0].id) return res.status(400).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
+        }
+
+        next();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+}
+
+module.exports = {
+    validarCadastro,
+    validarToken,
+    validarAtualizacao
 };
