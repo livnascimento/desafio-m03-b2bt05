@@ -15,7 +15,8 @@ const { listarCategorias } = require('./controladores/categoriaControlador');
 const { 
     listarTransacoes, 
     detalharTransacao, 
-    cadastrarTransacao 
+    cadastrarTransacao, 
+    atualizarTransacao
 } = require('./controladores/transacoesControlador');
 
 rotas.post('/usuario', validarCadastro, cadastrarUsuario);
@@ -31,5 +32,6 @@ rotas.get('/categoria', listarCategorias);
 rotas.get('/transacao', listarTransacoes);
 rotas.get('/transacao/:id', detalharTransacao);
 rotas.post('/transacao', cadastrarTransacao);
+rotas.put('/transacao/:id', atualizarTransacao);
 
 module.exports = rotas;

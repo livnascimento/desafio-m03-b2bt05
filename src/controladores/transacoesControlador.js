@@ -54,8 +54,32 @@ const cadastrarTransacao = async (req, res) => {
     }
 };
 
+const atualizarTransacao = async (req, res) => {
+    const { id: id_usuario } = req.usuario;
+    const { id: id_transacao } = req.params;
+    const { descricao, valor, categoria_id, tipo, data } = req.body;
+
+    try {
+        if (!descricao || !valor || !data || !categoria_id || !tipo) return res.status(400).json({mensagem: 'Obrigatório informar descricao, valor, categoria_id e tipo.'});
+
+    const query = 'update transacoes set descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5 where usuario_id = $6 and id = $7';
+    const params = [descricao, valor, data, categoria_id, tipo, id_usuario, id_transacao];
+
+    const transacao = await pool.query(query, params);
+
+    if (transacao.rowCount < 1) return res.status(404).json({ mensagem: 'Transação não encontrada.' });
+
+    return res.status(204).json();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+
+};
+
 module.exports = {
     listarTransacoes,
     detalharTransacao,
-    cadastrarTransacao
+    cadastrarTransacao,
+    atualizarTransacao
 };
