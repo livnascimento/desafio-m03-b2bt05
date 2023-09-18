@@ -12,7 +12,12 @@ const {
     validarAtualizacao
 } = require('./intermediarios/usuarioIntermediario');
 const { listarCategorias } = require('./controladores/categoriaControlador');
-const { listarTransacoes, detalharTransacao } = require('./controladores/transacoesControlador');
+const { 
+    listarTransacoes, 
+    detalharTransacao, 
+    cadastrarTransacao 
+} = require('./controladores/transacoesControlador');
+
 rotas.post('/usuario', validarCadastro, cadastrarUsuario);
 rotas.post('/login', login);
 
@@ -25,5 +30,6 @@ rotas.get('/categoria', listarCategorias);
 
 rotas.get('/transacao', listarTransacoes);
 rotas.get('/transacao/:id', detalharTransacao);
+rotas.post('/transacao', cadastrarTransacao);
 
 module.exports = rotas;
