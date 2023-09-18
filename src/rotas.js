@@ -16,7 +16,8 @@ const {
     listarTransacoes, 
     detalharTransacao, 
     cadastrarTransacao, 
-    atualizarTransacao
+    atualizarTransacao,
+    deletarTransacao
 } = require('./controladores/transacaoControlador');
 const validarCamposTransacao = require('./intermediarios/transacaoIntermediario');
 
@@ -34,5 +35,6 @@ rotas.get('/transacao', listarTransacoes);
 rotas.get('/transacao/:id', detalharTransacao);
 rotas.post('/transacao', validarCamposTransacao, cadastrarTransacao);
 rotas.put('/transacao/:id', validarCamposTransacao, atualizarTransacao);
+rotas.delete('/transacao/:id', deletarTransacao);
 
 module.exports = rotas;

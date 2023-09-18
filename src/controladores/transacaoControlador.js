@@ -71,9 +71,29 @@ const atualizarTransacao = async (req, res) => {
 
 };
 
+const deletarTransacao = async (req, res) => {
+    const {id: id_usuario} = req.usuario;
+    const {id: id_transacao} = req.params;
+
+    try {
+        const query = 'delete from transacoes where id = $1 and usuario_id = $2';
+        const params = [id_transacao, id_usuario];
+    
+        const transacao = await pool.query(query, params);
+    
+        if (transacao.rowCount < 1) return res.status(404).json({mensagem: "Transação não encontrada."});
+    
+        return res.status(204).json();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    }
+}
+
 module.exports = {
     listarTransacoes,
     detalharTransacao,
     cadastrarTransacao,
-    atualizarTransacao
+    atualizarTransacao,
+    deletarTransacao
 };
