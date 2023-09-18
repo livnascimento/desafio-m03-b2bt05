@@ -50,7 +50,7 @@ const validarAtualizacao = async (req, res, next) => {
     if (!nome || !email || !senha) req.status(400).json({ mensagem: "Todos os campos são obrigatórios" });
 
     try {
-        const query = "SELECT * FROM usuarios WHERE email = $1";
+        const query = "select * from usuarios where email = $1";
         const params = [email];
 
         const usuario = await pool.query(query, params);

@@ -80,9 +80,9 @@ const atualizarUsuario = async (req, res) => {
     const senhaCriptografada = await bcrypt.hash(senha, 10)
 
     try {
-        const query = "UPDATE usuarios SET nome = $1, email = $2, senha = $3 WHERE id = $4";
+        const query = "update usuarios set nome = $1, email = $2, senha = $3 where id = $4";
         const params = [nome, email, senhaCriptografada, id];
-    
+
         const usuario = await pool.query(query, params);
 
         res.status(204).send();
