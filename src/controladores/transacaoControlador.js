@@ -37,10 +37,6 @@ const cadastrarTransacao = async (req, res) => {
     const { id } = req.usuario;
     const { descricao, valor, categoria_id, tipo, data } = req.body;
 
-    if (!descricao || !valor || !data || !categoria_id || !tipo) return res.status(400).json({mensagem: 'Obrigatório informar descricao, valor, categoria_id e tipo.'});
-
-    if (tipo !== 'entrada' && tipo !== 'saida') return res.status(400).json({mensagem: `O tipo da operaçao deve ser 'entrada' ou 'saida'`});
-
     try {
         const query = 'insert into transacoes (descricao, valor, data, categoria_id, usuario_id, tipo) values ($1, $2, $3, $4, $5, $6) returning *';
         const params = [descricao, valor, data, categoria_id, id, tipo];
@@ -60,8 +56,6 @@ const atualizarTransacao = async (req, res) => {
     const { descricao, valor, categoria_id, tipo, data } = req.body;
 
     try {
-        if (!descricao || !valor || !data || !categoria_id || !tipo) return res.status(400).json({mensagem: 'Obrigatório informar descricao, valor, categoria_id e tipo.'});
-
     const query = 'update transacoes set descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5 where usuario_id = $6 and id = $7';
     const params = [descricao, valor, data, categoria_id, tipo, id_usuario, id_transacao];
 
