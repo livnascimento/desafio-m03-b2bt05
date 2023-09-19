@@ -3,8 +3,19 @@ const pool = require("../conexao");
 const listarTransacoes = async (req, res) => {
 
     const { id } = req.usuario;
+    const {filtro} = req.query;
 
     try {
+        
+        if (filtro) {
+
+            const query = "select t.id as id, t.tipo, t.descricao, t.valor, t.data, t.usuario_id, c.id as categoria_id, c.descricao as categoria_nome from transacoes t left join categorias c on c.id = t.categoria_id where usuario_id = $1 and c.descricao ilike any($2)";
+            const params = [id, filtro];
+            const transacoes = await pool.query(query, params);
+
+            return res.json(transacoes.rows);
+        }
+        
         const query = "select t.id as id, t.tipo, t.descricao, t.valor, t.data, t.usuario_id, c.id as categoria_id, c.descricao as categoria_nome from transacoes t left join categorias c on c.id = t.categoria_id where usuario_id = $1";
         const params = [id];
         const transacoes = await pool.query(query, params);
@@ -16,7 +27,6 @@ const listarTransacoes = async (req, res) => {
     }
 };
 
-// acho que faltou validar se a transação pertence ao usuário logado
 const detalharTransacao = async (req, res) => {
     const { id: id_usuario } = req.usuario;
     const { id: id_transacao } = req.params;
