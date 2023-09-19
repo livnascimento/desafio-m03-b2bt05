@@ -5,7 +5,7 @@ const listarTransacoes = async (req, res) => {
     const { id } = req.usuario;
 
     try {
-        const query = "select * from  transacoes where usuario_id = $1";
+        const query = "select t.id as id, t.tipo, t.descricao, t.valor, t.data, t.usuario_id, c.id as categoria_id, c.descricao as categoria_nome from transacoes t left join categorias c on c.id = t.categoria_id where usuario_id = $1";
         const params = [id];
         const transacoes = await pool.query(query, params);
 
@@ -18,11 +18,12 @@ const listarTransacoes = async (req, res) => {
 
 // acho que faltou validar se a transação pertence ao usuário logado
 const detalharTransacao = async (req, res) => {
-    const { id } = req.params;
+    const { id: id_usuario } = req.usuario;
+    const { id: id_transacao } = req.params;
 
     try {
-        const query = "select * from  transacoes where id = $1";
-        const params = [id];
+        const query = "select t.id as id, t.tipo, t.descricao , t.valor, t.data, t.usuario_id, c.id as categoria_id, c.descricao as categoria_nome from transacoes t left join categorias c on t.categoria_id = c.id where t.usuario_id = $1 and t.id = $2";
+        const params = [id_usuario, id_transacao];
         const transacao = await pool.query(query, params);
         if (transacao.rowCount < 1) return res.status(404).json({ mensagem: "Transação não encontrada" })
 
