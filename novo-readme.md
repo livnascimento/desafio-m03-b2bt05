@@ -3,6 +3,8 @@
 
 ## Pré-visualização
 
+![modulo3](https://github.com/sahrarafaela/desafio-backend-m03-b2bt05/assets/51425339/2a6ea749-180b-4dc3-8f45-a1c1ec9f55f7)
+
 ## Descrição do Projeto
 
 Este projeto é uma RESTful API para controle de finanças pessoais. Ele foi desenvolvido utilizando Node.js com JavaScript e utiliza o PostgreSQL como banco de dados.
