@@ -3,7 +3,7 @@
 
 ## Pré-visualização
 
-![modulo3](https://github.com/sahrarafaela/desafio-backend-m03-b2bt05/assets/51425339/2a6ea749-180b-4dc3-8f45-a1c1ec9f55f7)
+![modulo3](assets\modulo3.gif)
 
 ## Descrição do Projeto
 
@@ -21,7 +21,7 @@ Este projeto é uma RESTful API para controle de finanças pessoais. Ele foi des
 - Editar transação
 - Remover transação
 - Obter extrato de transações
-<!-- - Filtrar transações por categoria -->
+- Filtrar transações por categoria
 
 ## Pré-requisitos
 
@@ -58,7 +58,7 @@ Para configurar o projeto em seu ambiente local, siga estas etapas:
 5. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
    ```
-   PORT=3000
+   PORT=sua_porta
    HOST=seu_host
    USER=seu_usuario
    PASSWORD=sua_senha
@@ -74,7 +74,7 @@ Para configurar o projeto em seu ambiente local, siga estas etapas:
 
 ## Como utilizar
 
-Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs, como o Insomnia. O projeto estará rodando no `localhost`, na porta `3000`.
+Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs, como o Insomnia. O projeto estará rodando no host e porta definidos pelo usuário no arquivo `.env`.
 
 ### Endpoints e exemplos de requisição
 
