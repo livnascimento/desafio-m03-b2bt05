@@ -22,7 +22,6 @@ const listarTransacoes = async (req, res) => {
 
         return res.json(transacoes.rows)
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 };
@@ -39,7 +38,6 @@ const detalharTransacao = async (req, res) => {
 
         return res.json(transacao.rows)
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 };
@@ -56,7 +54,6 @@ const cadastrarTransacao = async (req, res) => {
 
         return res.status(201).json(transacao.rows[0]);
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 };
@@ -76,7 +73,6 @@ const atualizarTransacao = async (req, res) => {
 
     return res.status(204).json();
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 
@@ -96,7 +92,6 @@ const deletarTransacao = async (req, res) => {
     
         return res.status(204).json();
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 }
@@ -119,7 +114,6 @@ const gerarExtrato = async (req, res) => {
         return res.status(200).json(extrato_usuario);
         
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 };

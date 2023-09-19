@@ -6,7 +6,6 @@ const listarCategorias = async (req, res) => {
         const categorias = await pool.query(query);
         return res.json(categorias.rows);
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 };

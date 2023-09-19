@@ -37,7 +37,6 @@ const validarToken = async (req, res, next) => {
         next();
 
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 
@@ -61,7 +60,6 @@ const validarAtualizacao = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: "Erro interno do servidor." });
     }
 }
