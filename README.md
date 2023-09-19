@@ -3,7 +3,7 @@
 
 ## Pré-visualização
 
-![modulo3](assets\modulo3.gif)
+![modulo3](./assets/modulo3.gif)
 
 ## Descrição do Projeto
 
