@@ -58,7 +58,7 @@ Para configurar o projeto em seu ambiente local, siga estas etapas:
 5. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
    ```
-   PORT=sua_porta
+   PORT=porta_do_banco_de_dados
    HOST=seu_host
    USER=seu_usuario
    PASSWORD=sua_senha
@@ -74,7 +74,7 @@ Para configurar o projeto em seu ambiente local, siga estas etapas:
 
 ## Como utilizar
 
-Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs, como o Insomnia. O projeto estará rodando no host e porta definidos pelo usuário no arquivo `.env`.
+Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs, como o Insomnia. O projeto estará rodando no host definido pelo usuário no arquivo `.env` e utilizando a porta `3000` do servidor, definida no arquivo [`index.js`](./src/index.js).
 
 ### Endpoints e exemplos de requisição
 
@@ -83,12 +83,6 @@ Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs,
   `POST` `/usuario`
 
   Esta rota permite que o usuário cadastre-se na aplicação.
-
-  O corpo (body) da requisição deverá conter um json com as seguintes propriedades:
-
-  - `nome` (obrigatório)
-  - `email` (obrigatório)
-  - `senha` (obrigatório)
 
   Exemplo de requisição
   ```
@@ -105,11 +99,6 @@ Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs,
   `POST` `/login`
 
   Essa é a rota que permite o usuario cadastrado realizar o login no sistema.
-
-  O corpo (body) deverá possuir um objeto com as seguintes propriedades:
-
-  - `email` (obrigatório)
-  - `senha` (obrigatório)
 
   Exemplo de requisição
   ```
@@ -245,7 +234,7 @@ Você pode utilizar o projeto com uma ferramenta de teste e depuração de APIs,
   // Sem conteúdo no corpo (body) da requisição
   ```
 
-- **Filtrar transações por categoria**
+- **[EXTRA] Filtrar transações por categoria**
 
   `GET` `/transacao?filtro`
 
